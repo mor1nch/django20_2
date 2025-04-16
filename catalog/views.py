@@ -1,9 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from catalog.models import Product
 
 
-def main(request):
-    return render(request, 'main.html')
+def product_list(request):
+    context = {
+        'object_list': Product.objects.all()
+    }
+    return render(request, 'product_list.html', context)
 
 
-def contact(request):
-    return render(request, 'contact.html')
+def product_detail(request, product_id):
+    context = {
+        'product': get_object_or_404(Product, id=product_id)
+    }
+    return render(request, 'product_detail.html', context)
+
+
+def contact_us(request):
+    return render(request, 'contact_us.html')
